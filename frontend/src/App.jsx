@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
+import Certifications from './components/Certifications';
 import Projects from './components/Projects';
 import Impact from './components/Impact';
 import Contact from './components/Contact';
@@ -18,6 +19,7 @@ function App() {
           <Hero />
           <About />
           <Skills />
+          <Certifications />
           <Projects />
           <Impact />
           <Contact />

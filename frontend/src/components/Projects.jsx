@@ -129,29 +129,29 @@ const projects = [
 
 const ProjectCard = ({ project, onClick }) => {
   return (
-    <div onClick={onClick} className={`glass-panel group cursor-pointer overflow-hidden ${project.span} flex flex-col h-full min-h-[300px] border border-border bg-surface/50 dark:bg-black/20 hover:border-accent-primary/50 transition-colors duration-500`}>
-      <motion.div layoutId={`card-${project.title}`} className="absolute inset-0 z-0 bg-[#0a0a0f]">
-        <motion.img layoutId={`image-${project.title}`} src={project.image} alt={project.title} loading="lazy" className="w-full h-full object-cover opacity-30 dark:opacity-40 group-hover:opacity-70 transition-all duration-700 group-hover:scale-110" />
+    <div onClick={onClick} className={`glass-panel group cursor-pointer overflow-hidden ${project.span} flex flex-col h-full min-h-[300px] border border-border bg-surface/50 dark:bg-black/20 hover:border-accent-primary/20 transition-colors duration-500`}>
+      <div className="absolute inset-0 z-0 bg-[#0a0a0f]">
+        <img src={project.image} alt={project.title} loading="lazy" className="w-full h-full object-cover opacity-30 dark:opacity-40 group-hover:opacity-50 transition-all duration-700" />
         <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-[#050508] via-white/80 dark:via-[#050508]/80 to-transparent dark:to-transparent"></div>
-      </motion.div>
+      </div>
 
       <div className="relative z-10 p-8 flex flex-col h-full justify-end pointer-events-none">
         <div className="mb-4 flex flex-wrap gap-2">
           {project.tags.map(tag => (
-            <span key={tag} className="text-xs px-2.5 py-1 rounded-full bg-white/50 dark:bg-white/5 border border-gray-200 dark:border-white/5 backdrop-blur-md text-[var(--text-secondary)] group-hover:border-accent-blue/50 group-hover:text-[var(--text-primary)] transition-all duration-500">
+            <span key={tag} className="text-xs px-2.5 py-1 rounded-full bg-white/50 dark:bg-white/5 border border-gray-200 dark:border-white/5 backdrop-blur-md text-[var(--text-secondary)] group-hover:border-accent-blue/30 group-hover:text-[var(--text-primary)] transition-all duration-500">
               {tag}
             </span>
           ))}
         </div>
-        <motion.h3 layoutId={`title-${project.title}`} className="text-2xl font-black mb-2 tracking-wide text-[var(--text-primary)] group-hover:text-accent-blue transition-colors duration-300 pointer-events-auto w-fit">
+        <h3 className="text-2xl font-black mb-2 tracking-wide text-[var(--text-primary)] group-hover:text-accent-blue transition-colors duration-300 pointer-events-auto w-fit">
           {project.title}
-        </motion.h3>
+        </h3>
         <p className="text-[var(--text-secondary)] text-sm md:text-base leading-relaxed mb-6 group-hover:text-[var(--text-primary)] transition-colors pointer-events-auto">
           {project.description}
         </p>
         <div className="flex items-center gap-4 mt-auto pointer-events-auto">
           {project.github && project.github !== "#" && (
-            <a href={project.github} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="p-3 rounded-full bg-surface dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 border border-border hover:border-accent-primary/50 transition-colors backdrop-blur-md text-[var(--text-primary)] shadow-lg">
+            <a href={project.github} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="p-3 rounded-full bg-surface dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 border border-border hover:border-accent-primary/30 transition-colors backdrop-blur-md text-[var(--text-primary)] shadow-lg">
               <Github size={20} />
             </a>
           )}
@@ -160,12 +160,12 @@ const ProjectCard = ({ project, onClick }) => {
               <ExternalLink size={20} />
             </a>
           )}
-          <span className="ml-auto text-sm text-accent-blue font-semibold group-hover:translate-x-1 transition-transform flex items-center gap-1">
+          <span className="ml-auto text-sm text-accent-blue font-semibold flex items-center gap-1">
             View Case Study <ArrowRight size={16} />
           </span>
         </div>
       </div>
-      <div className="absolute inset-0 rounded-2xl pointer-events-none border-2 border-transparent group-hover:border-accent-blue/30 transition-all duration-700"></div>
+      <div className="absolute inset-0 rounded-2xl pointer-events-none border-2 border-transparent group-hover:border-accent-blue/20 transition-all duration-700"></div>
     </div>
   );
 };
@@ -230,23 +230,16 @@ export default function Projects() {
             </div>
         </motion.div>
 
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
-            <AnimatePresence mode="popLayout">
-                {filteredProjects.map((project, index) => (
-                    <motion.div
-                        key={project.id}
-                        layout
-                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-                        transition={{ duration: 0.4 }}
-                        className={project.span}
-                    >
-                        <ProjectCard project={project} onClick={() => setSelectedProject(project)} />
-                    </motion.div>
-                ))}
-            </AnimatePresence>
-        </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
+            {filteredProjects.map((project, index) => (
+                <div
+                    key={project.id}
+                    className={project.span}
+                >
+                    <ProjectCard project={project} onClick={() => setSelectedProject(project)} />
+                </div>
+            ))}
+        </div>
       </div>
 
       <AnimatePresence>
